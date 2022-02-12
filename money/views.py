@@ -44,7 +44,7 @@ def post_new(request):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
-            return redirect('/')
+            return redirect('/menu/')
 
     else:
         form = PostForm()
