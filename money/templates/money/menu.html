@@ -5,12 +5,33 @@
     <title>menu</title>
 </head>
 <body>
-{% for post in posts %}
-    <div>
-        <p>{{ post.summa }}</p>
-        <p>{{ post.get_selector_display }}</p>
-        <p>{{ post.notes }}</p>
-    </div>
-{% endfor %}
+<a href="{% url 'for_forms' %}">Добавить запись</a>
+<a href="{% url 'auth' %}">Профиль</a>
+<h3>Общий расход:</h3>
+<p>{{count}}</p>
+<h3>Расходы</h3>
+{% if count_1 > 0 %}
+<p>{{count_1}} Продукты </p>
+{% endif %}
+{% if count_2 > 0 %}
+<p>{{count_2}} Транспорт </p>
+{% endif %}
+{% if count_3 > 0 %}
+<p>{{count_3}} Одежда </p>
+{% endif %}
+{% if count_4 > 0 %}
+<p>{{count_4}} Коммунальные услуги </p>
+{% endif %}
+{% if count_5 > 0 %}
+<p>{{count_5}} Аптеки </p>
+{% endif %}
+{% if count_6 > 0 %}
+<p>{{count_6}} Дом </p>
+{% endif %}
+{% if count_7 > 0 %}
+
+<h3>Доход</h3>
+<p>{{count_7}}</p>
+{% endif %}
 </body>
 </html>
