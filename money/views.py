@@ -17,4 +17,4 @@ def post_new(request):
             post.save()
     else:
         form = PostForm()
-    return render(request, 'first_menu/post_edit.html', {'form': form})
+    return render(request, 'money/for_forms.html', {'form': form})
