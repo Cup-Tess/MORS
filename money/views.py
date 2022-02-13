@@ -5,6 +5,7 @@ from .forms import PostForm
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from json import dumps
 
 def auth(request):
     return render(request, "money/auth.html")
@@ -33,7 +34,16 @@ def menu(request):
             count_6 += post.summa
         elif post.selector == 'Д':
             count_7 += post.summa
-    return render(request, 'money/menu.html', {'count_1': count_1, 'count_2': count_2, 'count_3': count_3, 'count_4': count_4, 'count_5': count_5, 'count_6': count_6, 'count_7': count_7, 'count': count, })
+        data = [
+            ['Продукты', int(count_1)],
+            ['Транспорт', int(count_2)],
+            ['Одежда', int(count_3)],
+            ['Коммунальные услуги', int(count_4)],
+            ['Аптеки', int(count_5)],
+            ['Дом', int(count_6)]
+        ]
+        dataJSON = dumps(data)
+    return render(request, 'money/menu.html', {'data': dataJSON, 'count_1': count_1, 'count_2': count_2, 'count_3': count_3, 'count_4': count_4, 'count_5': count_5, 'count_6': count_6, 'count_7': count_7, 'count': count, })
 
 
 def post_new(request):
