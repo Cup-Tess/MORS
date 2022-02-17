@@ -15,9 +15,22 @@ class SignUp(CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
 
+data2 = data3 = str(timezone.now())
+data2 = data2[:10]
+data3 = data3[:10]
+dataJSON2 = dumps(data2)
+dataJSON3 = dumps(data3)
+
 def menu(request):
+    global dataJSON2, dataJSON3, data2, data3
+    if request.method == "POST":
+        data2 = request.POST.get('data2')
+        data3 = request.POST.get('data3')
+        dataJSON2 = dumps(data2)
+        dataJSON3 = dumps(data3)
+    posts = Post.objects.filter(author=request.user).filter(published_date__range=[data2, data3])
     count = count_1 = count_2 = count_3 = count_4 = count_5 = count_6 = count_7 = 0
-    posts = Post.objects.filter(author=request.user)
+
     for post in posts:
         count += post.summa
         if post.selector =='П':
@@ -34,7 +47,7 @@ def menu(request):
             count_6 += post.summa
         elif post.selector == 'Д':
             count_7 += post.summa
-        data = [
+    data = [
             ['Продукты', int(count_1)],
             ['Транспорт', int(count_2)],
             ['Одежда', int(count_3)],
@@ -42,20 +55,25 @@ def menu(request):
             ['Аптеки', int(count_5)],
             ['Дом', int(count_6)]
         ]
-        dataJSON = dumps(data)
-    return render(request, 'money/menu.html', {'data': dataJSON, 'count_1': count_1, 'count_2': count_2, 'count_3': count_3, 'count_4': count_4, 'count_5': count_5, 'count_6': count_6, 'count_7': count_7, 'count': count, })
+    dataJSON = dumps(data)
+    return render(request, 'money/menu.html', {'data': dataJSON, 'count_1': count_1, 'count_2': count_2, 'count_3': count_3, 'count_4': count_4, 'count_5': count_5, 'count_6': count_6, 'count_7': count_7, 'count': count,'dataJSON2':dataJSON2, 'dataJSON3': dataJSON3,})
 
 
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
+        data1 = request.POST.get('data1')
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
+            post.published_date = data1
             post.save()
             return redirect('/menu/')
 
     else:
         form = PostForm()
     return render(request, 'money/for_forms.html', {'form': form})
+
+def history(request):
+    posts = Post.objects.filter(author=request.user)
+    return render(request, 'money/history.html', {'posts': posts})

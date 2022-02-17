@@ -33,6 +33,20 @@
     <div id="donutchart" style="width: 900px; height: 500px;"></div>
 <a href="{% url 'for_forms' %}">Добавить запись</a>
 <a href="{% url 'auth' %}">Профиль</a>
+<a href="{% url 'history' %}">Истрория</a>
+    <form method="post">
+    {% csrf_token %}
+        <input type="date" id="davaToday1" name="data2">
+        <input type="date" id="davaToday2" name="data3">
+        <button type="submit" class="save btn btn-default">Save</button>
+        <script>
+            var data2 = JSON.parse("{{dataJSON2|escapejs}}");
+            var data3 = JSON.parse("{{dataJSON3|escapejs}}");
+            console.log(data2,data3)
+            document.getElementById('davaToday1').value = data2;
+            document.getElementById('davaToday2').value = data3;
+        </script>
+    </form>
 <h3>Общий расход:</h3>
 <p>{{count}}</p>
 <h3>Расходы</h3>

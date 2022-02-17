@@ -1,11 +1,10 @@
-<!-- registration/login.html -->
-
 {% block title %}Login{% endblock %}
 
 {% block content %}
-  <h2>Login</h2>
-
+<a href="{% url 'signup' %}">to signup</a>'
+<a href="{% url 'auth' %}">Back</a>
     <form method="post">
+      <h1>Login</h1>
       {% csrf_token %}
       <table>
         {{ form.as_p }}

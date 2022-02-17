@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{% url 'menu' %}">Анализ</a>
+{% for post in posts %}
+<p>{{post.summa}}</p>
+<p style="background: lightblue;">{{post.get_selector_display}}</p>
+<p style="background: pink;">{{post.notes}}</p>
+<p style="background: green">{{post.published_date}}</p>
+{%endfor%}
+</body>
+</html>

@@ -7,9 +7,14 @@
 <body>
 {% block content %}
     <h1>New post</h1>
+<a href="{% url 'menu' %}">Анализ</a>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
+        <input type="date" id="davaToday" name="data1">
         <button type="submit" class="save btn btn-default">Save</button>
+        <script>
+            document.getElementById('davaToday').valueAsDate = new Date();
+        </script>
     </form>
 {% endblock %}
 </body>
