@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <meta charset="UTF-8">
+    <title>menu</title>
+</head>
+<body>
+{% if count > 0%}
+<script type="text/javascript">
       var datas = JSON.parse("{{data|escapejs}}");
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
@@ -25,12 +30,11 @@
         chart.draw(data, options);
       }
     </script>
-
-    <meta charset="UTF-8">
-    <title>menu</title>
-</head>
-<body>
     <div id="donutchart" style="width: 900px; height: 500px;"></div>
+{% else %}
+<h2>За выбранный промежуток нет расходов</h2>
+<p>Очень экономно</p>
+{%endif%}
 <a href="{% url 'for_forms' %}">Добавить запись</a>
 <a href="{% url 'auth' %}">Профиль</a>
 <a href="{% url 'history' %}">Истрория</a>
@@ -42,7 +46,6 @@
         <script>
             var data2 = JSON.parse("{{dataJSON2|escapejs}}");
             var data3 = JSON.parse("{{dataJSON3|escapejs}}");
-            console.log(data2,data3)
             document.getElementById('davaToday1').value = data2;
             document.getElementById('davaToday2').value = data3;
         </script>
@@ -53,11 +56,13 @@
         <script>
             var edin = JSON.parse("{{edin|escapejs}}");
             var SI = JSON.parse("{{SI|escapejs}}");
-            console.log(edin,SI)
             document.getElementById('edin').innerText = edin;
             document.getElementById('SI').innerText = SI;
     </script>
 <p>{{count}}</p>
+    <h3>Общий остаток</h3>
+    {{ostatok}}
+{% if count > 0 %}
 <h3>Расходы</h3>
 {% if count_1 > 0 %}
 <p>{{count_1}} Продукты </p>
@@ -77,6 +82,7 @@
 {% if count_6 > 0 %}
 <p>{{count_6}} Дом </p>
 {% endif %}
+{%endif%}
 {% if count_7 > 0 %}
 
 <h3>Доход</h3>

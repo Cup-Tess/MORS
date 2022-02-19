@@ -11,55 +11,48 @@
 <a href="{% url 'auth' %}">Back </a>
 <a href="{% url 'login' %}">Login</a>
 
-{% block content %}
-<form method="post">
-<h2>Регистрация</h2>
-<p for="id_username">
-Имя пользователя:
-</p>
-
-{{form.username}}
-
-<br>
-
-<p for="id_password1">
-Пароль:
-</p>
-
-{{form.password1}}
-
-<br>
-
-<p class="helpt">
-Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.
-</p>
-
-<br>
-
-<span class="helptext">
+    <form method="post">
+        <h2>Регистрация</h2>
+        {% csrf_token %}
+    <p for="id_username">Имя пользователя:</p>
+    {{form.username}}<br>
+        {%if form.username.errors%}
+        {% for error in form.username.errors %}
+            <div style="color:red" >
+                {{error}}
+            </div>
+            {% endfor %}
+        {%endif%}
+        {{form.username.errors}}
+    <p for="id_password1">Пароль:</p>
+    {{form.password1}}
+                {%if form.password1.errors%}
+        {% for error in form.password1.errors %}
+            <div style="color:red" >
+                {{error}}
+            </div>
+            {% endfor %}
+        {%endif%}
+    <br><p class="helpt">Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</p>
+    <br>
+    <span class="helptext">
 <ul><li>Пароль не должен быть слишком похож на другую вашу личную информацию.</li>
 <li>Ваш пароль должен содержать как минимум 8 символов.</li>
 <li>Пароль не должен быть слишком простым и распространенным.</li>
 <li>Пароль не может состоять только из цифр.</li></ul>
 </span>
-
-<p for="id_password2">
-Подтверждение пароля:
-</p>
-
-{{form.password2}}
-
-<br>
-
-<p class="helpt">
-Для подтверждения введите, пожалуйста, пароль ещё раз.
-</p>
-
-<br>
-
+    <p for="id_password2">Подтверждение пароля:</p>
+    {{form.password2}}
+                {%if form.password2.errors%}
+        {% for error in form.password2.errors %}
+            <div style="color:red" >
+                {{error}}
+            </div>
+            {% endfor %}
+        {%endif%}
+        <br>
+    <p class="helpt">Для подтверждения введите, пожалуйста, пароль ещё раз.</p><br>
     <input type="submit" value="Register">
-</form>
-
-{% endblock %}
+    </form>
 </body>
 </html>

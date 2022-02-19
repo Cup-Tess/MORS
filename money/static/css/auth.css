@@ -1,0 +1,24 @@
+.all {
+width: 70%;
+padding: 32px;
+border-radius: 10px;
+box-shadow: 0 4px 16px #ccc;
+letter-spacing: 1px;
+text-align: center;
+margin: auto;
+background-color: #b7e289;
+font-family:Century Gothic;
+}
+
+body {
+font-size: 300%;
+background: url("/static/images/money2.png");}
+
+a {
+color: white;
+text-decoration: none;
+padding: 1px 3px 1px 3px;
+border-radius: 3px;
+background: #68b174;
+box-shadow: 0 -3px rgb(53,167,110) inset;
+margin-right: 3%;}

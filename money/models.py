@@ -23,3 +23,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.selector
+
+
+class Datas(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    edin = models.IntegerField(default=1)
+    SI = models.CharField(max_length=100, default='рубль')
+    data1 = models.DateTimeField(blank=True, null=True)
+    data2 = models.DateTimeField(blank=True, null=True)
+
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return self.SI
