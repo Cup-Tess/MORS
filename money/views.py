@@ -7,8 +7,21 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from json import dumps
 
+
+edin = 1
+SI = 'рубль'
 def auth(request):
-    return render(request, "money/auth.html")
+    global edin
+    global SI
+    if request.method == "POST":
+        edin = int(request.POST.get('edin'))
+        SI = request.POST.get('SI')
+    edin_JS = dumps(edin)
+    SI_JS=dumps(SI)
+    return render(request, "money/auth.html", {"edin": edin_JS, "SI": SI_JS,})
+
+
+
 
 class SignUp(CreateView):
     form_class = UserCreationForm
@@ -16,13 +29,15 @@ class SignUp(CreateView):
     template_name = "registration/signup.html"
 
 data2 = data3 = str(timezone.now())
-data2 = data2[:10]
-data3 = data3[:10]
+data2 = data2[:10]+'T'+data2[11:16]
+data3 = data3[:10]+'T'+data2[11:16]
 dataJSON2 = dumps(data2)
 dataJSON3 = dumps(data3)
 
 def menu(request):
-    global dataJSON2, dataJSON3, data2, data3
+    global dataJSON2, dataJSON3, data2, data3, edin, SI
+    edin_JS = dumps(edin)
+    SI_JS = dumps(SI)
     if request.method == "POST":
         data2 = request.POST.get('data2')
         data3 = request.POST.get('data3')
@@ -56,7 +71,7 @@ def menu(request):
             ['Дом', int(count_6)]
         ]
     dataJSON = dumps(data)
-    return render(request, 'money/menu.html', {'data': dataJSON, 'count_1': count_1, 'count_2': count_2, 'count_3': count_3, 'count_4': count_4, 'count_5': count_5, 'count_6': count_6, 'count_7': count_7, 'count': count,'dataJSON2':dataJSON2, 'dataJSON3': dataJSON3,})
+    return render(request, 'money/menu.html', {'edin': edin_JS,'SI': SI_JS,'data': dataJSON, 'count_1': round(count_1/edin, 1), 'count_2': round(count_2/edin, 1), 'count_3': round(count_3/edin, 1), 'count_4': round(count_4/edin, 1), 'count_5': round(count_5/edin, 1), 'count_6': round(count_6/edin, 1), 'count_7': round(count_7/edin, 1), 'count': round(count/edin, 1),'dataJSON2':dataJSON2, 'dataJSON3': dataJSON3,})
 
 
 def post_new(request):

@@ -1,0 +1,49 @@
+h2 {color: white;
+background-color: #BC4639;
+padding: 20px;
+width: 100%;
+text-align: left;
+font-size: 500%;}
+
+body {background-color: #F3E0DC;}
+
+form {font-size: 200%;}
+
+span {font-size: 200%;
+margin-left: 5%;}
+
+.helpt {color:#BC4639;
+font-size: 100%;
+background-color: #F3E0DC;
+}
+
+p {font-size: 200%;
+margin-bottom: 1%;
+background-color: #BC4639; width: 80%;
+padding: 1% 1% 1% 5%;
+color: white;
+border-radius: 20px;}
+
+ul {color: black;
+font-size:30%;
+margin: 5%;
+}
+
+input {font-size: 170%;
+padding: 15px 15px 15px 15px;
+margin: 5%;
+margin-bottom: 0;
+color: white;
+border-radius: 20px;}
+
+a:visited {
+color: #BC4639;
+font-size: 120%;}
+
+a:link {
+color: #BC4639;
+font-size: 120%;}
+
+input[type=submit] {
+background-color: #4285F4;
+margin-bottom: 50px;}

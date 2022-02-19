@@ -1,14 +1,65 @@
 <!--/templates/register.html-->
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/signup1.css' %}">
+    <style>
+    *{margin-left:0;}
+    </style>
+</head>
+<body>
+<a href="{% url 'auth' %}">Back </a>
+<a href="{% url 'login' %}">Login</a>
 
 {% block content %}
-<h2>Register</h2>
-
 <form method="post">
-    {% csrf_token %}
-    {{form}}
+<h2>Регистрация</h2>
+<p for="id_username">
+Имя пользователя:
+</p>
+
+{{form.username}}
+
+<br>
+
+<p for="id_password1">
+Пароль:
+</p>
+
+{{form.password1}}
+
+<br>
+
+<p class="helpt">
+Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.
+</p>
+
+<br>
+
+<span class="helptext">
+<ul><li>Пароль не должен быть слишком похож на другую вашу личную информацию.</li>
+<li>Ваш пароль должен содержать как минимум 8 символов.</li>
+<li>Пароль не должен быть слишком простым и распространенным.</li>
+<li>Пароль не может состоять только из цифр.</li></ul>
+</span>
+
+<p for="id_password2">
+Подтверждение пароля:
+</p>
+
+{{form.password2}}
+
+<br>
+
+<p class="helpt">
+Для подтверждения введите, пожалуйста, пароль ещё раз.
+</p>
+
+<br>
+
     <input type="submit" value="Register">
 </form>
 
-<a href="{% url 'login' %}">to login</a>
-<a href="{% url 'auth' %}">Back </a>
 {% endblock %}
+</body>
+</html>

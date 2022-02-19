@@ -1,17 +1,38 @@
-{% block title %}Login{% endblock %}
-
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'css/login2.css' %}">
+  <style>
+   *{margin-left:0;}
+   </style>
+</head>
+<body>
 {% block content %}
-<a href="{% url 'signup' %}">to signup</a>'
 <a href="{% url 'auth' %}">Back</a>
+<a href="{% url 'signup' %}">Signup</a>
     <form method="post">
-      <h1>Login</h1>
-      {% csrf_token %}
-      <table>
-        {{ form.as_p }}
-        <tr>
-          <td>&nbsp;</td>
-          <td><input type="submit" value="Submit"></td>
-        </tr>
-      </table>
+        <h1>Вход</h1>
+        {% csrf_token %}
+
+<p for="id_username">Имя пользователя:</p>
+
+<br>
+
+{{form.username}}
+
+<p for="id_password">Пароль:</p>
+
+<br>
+
+{{form.password}}
+<table>
+ <tbody>
+   <tr>
+     <td><input type="submit" value="Submit"></td>
+   </tr>
+ </tbody>
+</table>
     </form>
 {% endblock %}
+</body>
+</html>

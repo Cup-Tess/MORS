@@ -10,11 +10,11 @@
 <a href="{% url 'menu' %}">Анализ</a>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <input type="date" id="davaToday" name="data1">
+	<input type="datetime-local" id="datetimeLocalToday">
         <button type="submit" class="save btn btn-default">Save</button>
-        <script>
-            document.getElementById('davaToday').valueAsDate = new Date();
-        </script>
+<script>
+document.getElementById('datetimeLocalToday').value = new Date().toJSON().slice(0,16);
+</script>
     </form>
 {% endblock %}
 </body>

@@ -1,0 +1,61 @@
+form {
+width: 80%;
+padding: 32px;
+border-radius: 10px;
+box-shadow: 0 4px 16px #ccc;
+letter-spacing: 1px;
+text-align: center;
+margin: auto;
+background-color: #b7e289;
+font-family:Century Gothic;
+margin-bottom: 7%;
+}
+
+p {
+font-size: 300%;}
+
+ul {
+font-size: 200%;}
+
+body {
+background: url("/static/images/money1.png");
+font-family:Century Gothic;}
+
+input[type=password] {
+font-size: 190%;
+width: 80%;
+padding: 20px 20px 20px 20px;
+}
+input[type=text] {
+font-size: 190%;
+width: 80%;
+padding: 20px 20px 20px 20px;
+}
+
+.helpt {font-size: 130%;}
+
+h2 {
+font-size: 470%;
+font-family:segoe script;}
+
+input[type=submit] {
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+outline: none;
+font-size: 300%;
+background-color: #307d51;
+color: white;
+margin-top: 10%;
+ }
+
+a {
+font-size: 200%;
+color: white;
+text-decoration: none;
+padding: 1px 3px 1px 3px;
+border-radius: 3px;
+background: #5fc47e;
+box-shadow: 0 -3px rgb(53,167,110) inset;
+margin-right: 3%;
+margin-bottom: 0;}

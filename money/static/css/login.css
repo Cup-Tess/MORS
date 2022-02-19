@@ -1,0 +1,39 @@
+body {font-size: 300%;
+background-color: #F3E0DC;}
+
+h1 {color: white;
+background-color: #BC4639;
+padding: 20px;
+width: 100%;
+text-align: left;
+font-size: 200%;}
+
+input[type=text] {font-size: 180%;
+width: 80%;
+border-radius: 20px;}
+
+input[type=password] {font-size: 180%;
+width: 80%;
+border-radius: 17px;
+margin-bottom: 5%;}
+
+p {font-size: 130%;
+margin-bottom: 1%;
+background-color: #BC4639; width: 80%;
+padding: 1% 1% 1% 5%;
+color: white;
+border-radius: 17px;}
+
+input[type=submit] {font-size: 350%;
+background-color: #4285F4;
+color:white;
+border-radius: 17px;
+padding: 15px 15px 15px 15px}
+
+a:visited {
+color: #BC4639;
+font-size: 120%;}
+
+a:link {
+color: #BC4639;
+font-size: 120%;}

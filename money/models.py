@@ -16,7 +16,7 @@ class Post(models.Model):
     notes = models.CharField(blank=True, null=True, max_length=200)
     summa = models.DecimalField(default=0, max_digits=10, decimal_places=1)
     selector = models.CharField(max_length=50, choices=SELECTOR_TRAT, verbose_name="selector", blank=True)
-    published_date = models.DateField(blank=True, null=True)
+    published_date = models.DateTimeField(blank=True, null=True)
 
     def publish(self):
         self.save()
