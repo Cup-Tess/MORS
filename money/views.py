@@ -6,6 +6,10 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from json import dumps
+import xlwt
+from django.http import HttpResponse
+import numpy as np
+from sklearn.linear_model import LinearRegression
 
 
 def auth(request):
@@ -57,8 +61,8 @@ def menu(request):
     if request.method == "POST":
         data2 = request.POST.get('data2')
         data3 = request.POST.get('data3')
-        p.data1 = data2
-        p.data2 = data3
+        p.data1 = data2[:10] + " " + data2[11:]
+        p.data2 = data3[:10] + " " + data3[11:]
         dataJSON2 = dumps(data2)
         dataJSON3 = dumps(data3)
     posts = Post.objects.filter(author=request.user).filter(published_date__range=[data2, data3])
@@ -107,7 +111,7 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = data_get
+            post.published_date = data_get[:10] + " " + data_get[11:]
             post.save()
             return redirect('/menu/')
 
@@ -117,6 +121,76 @@ def post_new(request):
 
 
 def history(request):
+    def prognoz(request):
+        posts = Post.objects.filter(author=request.user).order_by('published_date')
+        tz = str(timezone.now())
+        tz = tz[:7]
+        x_1 = []
+        y_1 = []
+        dat = 0
+        count = posts[0].summa
+        for i in range(1, len(posts)):
+            k = posts[i].published_date
+            d = posts[i - 1].published_date
+            if k[:7] == d[:7]:
+                count += posts[i].summa
+            else:
+                y_1.append(float(count))
+                x_1.append(float(y_1.index(float(count))))
+                if tz == d[:7]:
+                    dat = 1
+                    month = y_1.index(float(count))
+                count = posts[i].summa
+        y_1.append(float(count))
+        x_1.append(float(y_1.index(float(count))))
+        if tz == d[:7]:
+            dat = 1
+            month = y_1.index(float(count))
+        x = np.array(x_1).reshape((-1, 1))
+        y = np.array(y_1)
+        model = LinearRegression()
+        model.fit(x, y)
+        model = LinearRegression().fit(x, y)
+        if dat == 1:
+            x_new = np.array([month]).reshape((-1, 1))
+        else:
+            x_new = np.array([month+1]).reshape((-1, 1))
+        y_pred = model.predict(x_new)
+        return y_pred
+
+    prog = prognoz(request)
     p = Datas.objects.get(author=request.user)
     posts = Post.objects.filter(author=request.user).filter(published_date__range=[p.data1, p.data2])
-    return render(request, 'money/history.html', {'posts': posts, "data1": p.data1, "data2": p.data2, "ost": p.ost})
+    return render(request, 'money/history.html',
+                  {'prognoz': prog, 'posts': posts, "data1": p.data1, "data2": p.data2, "ost": p.ost})
+
+
+def export_post_xls(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="post.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Post')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Сумма', 'Категория', 'Заметки', 'Дата публикации', ]
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = Post.objects.filter(author=request.user).values_list('summa', 'selector', 'notes', 'published_date')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response

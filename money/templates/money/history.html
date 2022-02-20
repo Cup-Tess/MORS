@@ -5,13 +5,20 @@
     <title>Title</title>
 </head>
 <body>
+<a href="/export_users_xls">Экспорт данных</a>
 <a href="{% url 'menu' %}">Анализ</a>
-<p> Общий остаток за промежуток времени с {{data1}} по{{data2}}:</p>
+<h3>Прогноз на конец месяца:</h3>
+{%for i in prognoz%}
+{{i}}
+{%endfor%}
+<p> Общий остаток за промежуток времени с {{data1}} по {{data2}}:</p>
 <p>{{ost}}</p>
 {% for post in posts %}
 <p>{{post.summa}}</p>
 <p style="background: lightblue;">{{post.get_selector_display}}</p>
+{%if post.notes != None %}
 <p style="background: pink;">{{post.notes}}</p>
+{%endif%}
 <p style="background: green">{{post.published_date}}</p>
 {%endfor%}
 </body>
