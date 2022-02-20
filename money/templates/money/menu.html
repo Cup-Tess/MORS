@@ -59,16 +59,17 @@
             document.getElementById('davaToday2').value = data3;
         </script>
     </form>
-<h3>Общий расход:</h3>
+    <div class="edinitsa">
+    <p>Базовый товар:</p>
     <p id="edin"></p>
-    <p id ="SI"></p>
-        <script>
+    <script>
             var edin = JSON.parse("{{edin|escapejs}}");
             var SI = JSON.parse("{{SI|escapejs}}");
-            document.getElementById('edin').innerText = edin;
-            document.getElementById('SI').innerText = SI;
+            document.getElementById('edin').innerText = edin +' '+ SI;
     </script>
-
+    </div>
+<h3>Общий расход:</h3>
+    {{count}}
 {% if count > 0 %}
 <h3>Расходы</h3>
 {% if count_1 > 0 %}

@@ -1,0 +1,92 @@
+body {font-size: 300%;
+background: url("/static/images/money2.png");}
+
+.green {
+width: 70%;
+padding: 32px;
+border-radius: 10px;
+box-shadow: 0 4px 16px #ccc;
+letter-spacing: 1px;
+text-align: center;
+margin: auto;
+background-color: #b7e289;
+font-family:Century Gothic;
+}
+
+a {
+color: white;
+text-decoration: none;
+padding: 9px 9px 9px 9px;
+border-radius: 3px;
+background: #68b174;
+box-shadow: 0 -3px rgb(53,167,110) inset;
+margin-right: 3%;
+margin-left: -1%;}
+
+a:hover {
+color: #68b174;
+background: white;
+border: 2 px solid #68b174;
+border-radius: 3px;}
+
+.history {
+border: 3px solid #68b174;
+background-color: #D8FBB3;
+width: 90%;
+margin: auto;}
+
+.summ {
+display: inline-block;
+font-size: 120%;
+width: 30%;
+float: left;}
+
+.category {
+font-size: 80%;
+display: inline-block;
+margin: 0;
+margin-top: 3%;
+margin-left: -20%;
+width: 20%;
+}
+
+.notes {
+margin: 0;
+font-size: 65%;
+margin-top: 5%;
+text-align: center;
+}
+.unnotes {
+font-size: 65%;
+color: grey;
+text-align: center;
+margin-top: 5%;
+position: relative;
+left:-3%;}
+.data {
+clear:both;
+margin:0;
+font-size: 50%;
+color: grey;
+text-align: center;
+position: relative;
+right: 5%;bottom:3%;}
+
+.piece {
+border: 1px solid #68b174;}
+
+.date {
+text-decoration: underline;
+margin: 0;
+font-size: 90%;}
+
+.all {
+border: 1px solid #68b174;
+margin: 5%;}
+
+.ostatok {
+background-color: #D8FBB3;
+padding: 15px 15px 15px 15px;
+width: 50%;
+margin: auto;
+margin-bottom: 5%;}

@@ -22,6 +22,11 @@ border-radius: 3px;
 background: #68b174;
 box-shadow: 0 -3px rgb(53,167,110) inset;
 margin-right: 3%;}
+a:hover {
+color: #68b174;
+background: white;
+border: 2 px solid #68b174;
+border-radius: 3px;}
 
 button {
 border: none;
@@ -34,6 +39,11 @@ box-shadow: 0 -3px rgb(53,167,110) inset;
 margin-right: 3%;
 font-size: 100%;
 font-family:Century Gothic;}
+button:hover {
+color: #68b174;
+background: white;
+border: 2 px solid #68b174;
+border-radius: 3px;}
 
 input[type=number] {
 font-size: 100%;

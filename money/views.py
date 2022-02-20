@@ -65,24 +65,25 @@ def menu(request):
         p.data2 = data3[:10] + " " + data3[11:]
         dataJSON2 = dumps(data2)
         dataJSON3 = dumps(data3)
-    posts = Post.objects.filter(author=request.user).filter(published_date__range=[data2, data3])
+    posts = Post.objects.filter(author=request.user).filter(published_date__range=[p.data1, p.data2])
     count = count_1 = count_2 = count_3 = count_4 = count_5 = count_6 = count_7 = 0
 
     for post in posts:
-        count += post.summa
-        if post.selector == 'П':
-            count_1 += post.summa
-        elif post.selector == 'Т':
-            count_2 += post.summa
-        elif post.selector == 'О':
-            count_3 += post.summa
-        elif post.selector == 'С':
-            count_4 += post.summa
-        elif post.selector == 'А':
-            count_5 += post.summa
-        elif post.selector == 'Ж':
-            count_6 += post.summa
-        elif post.selector == 'Д':
+        if post.selector != 'Д':
+            count += post.summa
+            if post.selector == 'П':
+                count_1 += post.summa
+            elif post.selector == 'Т':
+                count_2 += post.summa
+            elif post.selector == 'О':
+                count_3 += post.summa
+            elif post.selector == 'С':
+                count_4 += post.summa
+            elif post.selector == 'А':
+                count_5 += post.summa
+            elif post.selector == 'Ж':
+                count_6 += post.summa
+        else:
             count_7 += post.summa
     data = [
         ['Продукты', int(count_1)],
@@ -132,15 +133,16 @@ def history(request):
         for i in range(1, len(posts)):
             k = posts[i].published_date
             d = posts[i - 1].published_date
-            if k[:7] == d[:7]:
-                count += posts[i].summa
-            else:
-                y_1.append(float(count))
-                x_1.append(float(y_1.index(float(count))))
-                if tz == d[:7]:
-                    dat = 1
-                    month = y_1.index(float(count))
-                count = posts[i].summa
+            if posts[i].selector != "Д":
+                if k[:7] == d[:7]:
+                    count += posts[i].summa
+                else:
+                    y_1.append(float(count))
+                    x_1.append(float(y_1.index(float(count))))
+                    if tz == d[:7]:
+                        dat = 1
+                        month = y_1.index(float(count))
+                    count = posts[i].summa
         y_1.append(float(count))
         x_1.append(float(y_1.index(float(count))))
         if tz == d[:7]:
@@ -160,9 +162,9 @@ def history(request):
 
     prog = prognoz(request)
     p = Datas.objects.get(author=request.user)
-    posts = Post.objects.filter(author=request.user).filter(published_date__range=[p.data1, p.data2])
+    post = Post.objects.filter(author=request.user).filter(published_date__range=[p.data1, p.data2])
     return render(request, 'money/history.html',
-                  {'prognoz': prog, 'posts': posts, "data1": p.data1, "data2": p.data2, "ost": p.ost})
+                  {'prognoz':round(prog[0], 1), 'posts': post, "data1": p.data1, "data2": p.data2, "ost": p.ost})
 
 
 def export_post_xls(request):
@@ -194,3 +196,4 @@ def export_post_xls(request):
 
     wb.save(response)
     return response
+

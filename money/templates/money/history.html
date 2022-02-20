@@ -1,25 +1,39 @@
-<!DOCTYPE html>
+{%load static%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>History</title>
+    <link rel="stylesheet" href="{% static 'css/history.css' %}">
 </head>
 <body>
-<a href="/export_users_xls">Экспорт данных</a>
-<a href="{% url 'menu' %}">Анализ</a>
-<h3>Прогноз на конец месяца:</h3>
-{%for i in prognoz%}
-{{i}}
-{%endfor%}
-<p> Общий остаток за промежуток времени с {{data1}} по {{data2}}:</p>
-<p>{{ost}}</p>
-{% for post in posts %}
-<p>{{post.summa}}</p>
-<p style="background: lightblue;">{{post.get_selector_display}}</p>
-{%if post.notes != None %}
-<p style="background: pink;">{{post.notes}}</p>
-{%endif%}
-<p style="background: green">{{post.published_date}}</p>
-{%endfor%}
+<nav class="green">
+    <a href="/export_users_xls">Экспорт данных</a>
+    <a href="{% url 'menu' %}">Анализ</a>
+
+    <div class="all">
+        <p>Прогноз на конец месяца:</p>
+        <p class="ostatok">{{prognoz}}</p>
+    </div>
+
+    <div class="all"><p>Общий остаток за промежуток времени с
+        <p class="date">{{data1}}</p> по <p class="date">{{data2}}:</p></p>
+        <p class="ostatok">{{ost}}</p></div>
+
+    <div class="history">
+        {% for post in posts %}
+        <div class="piece">
+            <p class="summ">{{post.summa}}</p>
+            <p class="category">{{post.get_selector_display}}</p>
+            <br>
+            {%if post.notes != None %}
+            <p class="notes">{{post.notes}}</p>
+            {%else%}
+            <p class="unnotes">Нет заметок</p>
+            {%endif%}
+            <p class="data">{{post.published_date}}</p>
+        </div>
+        {%endfor%}
+    </div>
+</nav>
 </body>
 </html>
