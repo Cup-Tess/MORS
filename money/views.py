@@ -16,15 +16,15 @@ def auth(request):
         SI = request.POST.get('SI')
         posts = Datas.objects.filter(author=request.user)
         length = len(posts)
-        if length==0:
+        if length == 0:
             p = Datas()
-            p.author=request.user
+            p.author = request.user
             data2 = data3 = str(timezone.now())
             p.data1 = data2[:10] + 'T' + data2[11:16]
             p.data2 = data3[:10] + 'T' + data2[11:16]
             p.save()
         else:
-            p=Datas.objects.get(author=request.user)
+            p = Datas.objects.get(author=request.user)
             p.edin = edin
             p.SI = SI
             p.save()
@@ -32,10 +32,8 @@ def auth(request):
             return redirect('/menu')
 
     edin_JS = dumps(edin)
-    SI_JS=dumps(SI)
-    return render(request, "money/auth.html", {"edin": edin_JS, "SI": SI_JS,})
-
-
+    SI_JS = dumps(SI)
+    return render(request, "money/auth.html", {"edin": edin_JS, "SI": SI_JS, })
 
 
 class SignUp(CreateView):
@@ -68,7 +66,7 @@ def menu(request):
 
     for post in posts:
         count += post.summa
-        if post.selector =='П':
+        if post.selector == 'П':
             count_1 += post.summa
         elif post.selector == 'Т':
             count_2 += post.summa
@@ -83,16 +81,23 @@ def menu(request):
         elif post.selector == 'Д':
             count_7 += post.summa
     data = [
-            ['Продукты', int(count_1)],
-            ['Транспорт', int(count_2)],
-            ['Одежда', int(count_3)],
-            ['Коммунальные услуги', int(count_4)],
-            ['Аптеки', int(count_5)],
-            ['Дом', int(count_6)]
-        ]
+        ['Продукты', int(count_1)],
+        ['Транспорт', int(count_2)],
+        ['Одежда', int(count_3)],
+        ['Коммунальные услуги', int(count_4)],
+        ['Аптеки', int(count_5)],
+        ['Дом', int(count_6)]
+    ]
     dataJSON = dumps(data)
-    ostatok = count_7 - count
-    return render(request, 'money/menu.html', {'ostatok':ostatok,'edin': edin_JS, 'SI': SI_JS, 'data': dataJSON, 'count_1': round(count_1/edin, 1), 'count_2': round(count_2/edin, 1), 'count_3': round(count_3/edin, 1), 'count_4': round(count_4/edin, 1), 'count_5': round(count_5/edin, 1), 'count_6': round(count_6/edin, 1), 'count_7': round(count_7/edin, 1), 'count': round(count/edin, 1), 'dataJSON2': dataJSON2, 'dataJSON3': dataJSON3, })
+    ost = count_7 - count
+    p.ost = round(ost / edin, 1)
+    p.save()
+    return render(request, 'money/menu.html', {'edin': edin_JS, 'SI': SI_JS, 'data': dataJSON,
+                                               'count_1': round(count_1 / edin, 1), 'count_2': round(count_2 / edin, 1),
+                                               'count_3': round(count_3 / edin, 1), 'count_4': round(count_4 / edin, 1),
+                                               'count_5': round(count_5 / edin, 1), 'count_6': round(count_6 / edin, 1),
+                                               'count_7': round(count_7 / edin, 1), 'count': round(count / edin, 1),
+                                               'dataJSON2': dataJSON2, 'dataJSON3': dataJSON3, })
 
 
 def post_new(request):
@@ -102,7 +107,7 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
+            post.published_date = data_get
             post.save()
             return redirect('/menu/')
 
@@ -112,5 +117,6 @@ def post_new(request):
 
 
 def history(request):
-    posts = Post.objects.filter(author=request.user)
-    return render(request, 'money/history.html', {'posts': posts})
+    p = Datas.objects.get(author=request.user)
+    posts = Post.objects.filter(author=request.user).filter(published_date__range=[p.data1, p.data2])
+    return render(request, 'money/history.html', {'posts': posts, "data1": p.data1, "data2": p.data2, "ost": p.ost})

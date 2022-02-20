@@ -1,0 +1,58 @@
+.green {
+width: 70%;
+padding: 32px;
+border-radius: 10px;
+box-shadow: 0 4px 16px #ccc;
+letter-spacing: 1px;
+text-align: center;
+margin: auto;
+background-color: #b7e289;
+font-family:Century Gothic;
+}
+
+body {
+font-size: 300%;
+background: url("/static/images/money2.png");}
+
+input {
+font-size: 100%;
+width: 80%;
+padding: 20px 20px 20px 20px;
+margin: 5%;
+}
+select {
+font-size: 100%;
+width: 80%;
+padding: 20px 20px 20px 20px;
+margin: 5%;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
+option {font-size: 30%;}
+
+button {
+border: none;
+color: white;
+text-decoration: none;
+padding: 9px 9px 9px 9px;
+border-radius: 3px;
+background: #68b174;
+box-shadow: 0 -3px rgb(53,167,110) inset;
+margin-top: 8%;
+font-size: 120%;
+font-family:Century Gothic;}
+
+a {
+color: white;
+text-decoration: none;
+padding: 9px 9px 9px 9px;
+border-radius: 3px;
+background: #68b174;
+box-shadow: 0 -3px rgb(53,167,110) inset;
+margin-right: 3%;}
+
+h1 {
+font-size: 170%;
+font-family:segoe script;}

@@ -1,21 +1,24 @@
-<!DOCTYPE html>
+{%load static%}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/auth2.css' %}">
 </head>
 <body>
-
+<nav class="green">
     <h1>Hello, {{ user.username|default:'Guest' }}</h1>
 
-    <p> Welcome to the Our site</p>
+    <p> Welcome to our app</p>
     <div>
       {% if user.is_authenticated %}
                 <form method="post">
     {% csrf_token %}
         <a href="{% url 'logout' %}">Logout</a>
                     <button type="submit" name="but0">Отчёт</button>
-            <div>
+        <div class="base" data-title="Базовый товар - единичная покупка, стоимость которой вы можете использовать в качестве единицы измерения для ваших расходов">Базовый товар</div>
+        <div>
         <input type="number" id="edin" name="edin">
         <input type="text" id="SI" name="SI">
         <button type="submit" class="save btn btn-default">Save</button>
@@ -25,15 +28,15 @@
             document.getElementById('edin').value = edin;
             document.getElementById('SI').value = SI;
         </script>
-            </div>
+        </div>
     </form>
     </div>
 
       {% else %}
           <a href="{% url 'signup' %}">Sign Up</a>
           <a href="{% url 'login' %}">Login</a>
-        {% endif %}
-    </div>
+      {% endif %}
+</nav>
 
-  </body>
+</body>
 </html>

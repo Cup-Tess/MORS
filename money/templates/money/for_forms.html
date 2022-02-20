@@ -1,11 +1,14 @@
-<!DOCTYPE html>
+{%load static%}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add</title>
+    <link rel="stylesheet" href="{% static 'css/for_forms.css' %}">
 </head>
 <body>
 {% block content %}
+<nav class="green">
     <h1>New post</h1>
 <a href="{% url 'menu' %}">Анализ</a>
     <form method="POST" class="post-form">{% csrf_token %}
@@ -17,5 +20,6 @@ document.getElementById('datetimeLocalToday').value = new Date().toJSON().slice(
 </script>
     </form>
 {% endblock %}
+</nav>
 </body>
 </html>

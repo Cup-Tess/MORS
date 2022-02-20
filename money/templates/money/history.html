@@ -6,6 +6,8 @@
 </head>
 <body>
 <a href="{% url 'menu' %}">Анализ</a>
+<p> Общий остаток за промежуток времени с {{data1}} по{{data2}}:</p>
+<p>{{ost}}</p>
 {% for post in posts %}
 <p>{{post.summa}}</p>
 <p style="background: lightblue;">{{post.get_selector_display}}</p>

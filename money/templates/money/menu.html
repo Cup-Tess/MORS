@@ -1,11 +1,15 @@
-<!DOCTYPE html>
+{%load static%}
+
+
 <html lang="en">
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <meta charset="UTF-8">
     <title>menu</title>
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
 </head>
 <body>
+<nav class="green">
 {% if count > 0%}
 <script type="text/javascript">
       var datas = JSON.parse("{{data|escapejs}}");
@@ -24,6 +28,11 @@
 
         var options = {
           pieHole: 0.4,
+          width: 730,
+          height: 500,
+          fontSize: 30,
+          backgroundColor: '#b7e289',
+          legend: 'bottom',
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -37,7 +46,7 @@
 {%endif%}
 <a href="{% url 'for_forms' %}">Добавить запись</a>
 <a href="{% url 'auth' %}">Профиль</a>
-<a href="{% url 'history' %}">Истрория</a>
+<a href="{% url 'history' %}">История</a>
     <form method="post">
     {% csrf_token %}
         <input type="datetime-local" id="davaToday1" name="data2">
@@ -59,9 +68,7 @@
             document.getElementById('edin').innerText = edin;
             document.getElementById('SI').innerText = SI;
     </script>
-<p>{{count}}</p>
-    <h3>Общий остаток</h3>
-    {{ostatok}}
+
 {% if count > 0 %}
 <h3>Расходы</h3>
 {% if count_1 > 0 %}
@@ -88,5 +95,6 @@
 <h3>Доход</h3>
 <p>{{count_7}}</p>
 {% endif %}
+</nav>
 </body>
 </html>
